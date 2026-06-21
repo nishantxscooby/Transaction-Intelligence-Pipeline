@@ -1,0 +1,42 @@
+{
+  "cleaned_transactions": [
+    {
+      "txn_id": "t1",
+      "date": "2024-05-01",
+      "merchant": "IRCTC",
+      "amount": 500.0,
+      "currency": "INR",
+      "status": "POSTED",
+      "category": "Travel",
+      "account_id": "acct1",
+      "notes": "train ticket"
+    },
+    {
+      "txn_id": "t2",
+      "date": "2024-05-03",
+      "merchant": "Flipkart",
+      "amount": 1200.0,
+      "currency": "INR",
+      "status": "POSTED",
+      "category": "Shopping",
+      "account_id": "acct1",
+      "notes": "online shopping"
+    }
+  ],
+  "anomalies": [],
+  "category_breakdown": {
+    "Travel": 500.0,
+    "Shopping": 1200.0
+  },
+  "narrative": {
+    "narrative": "Total spend: 1700.00 INR. Top merchants: Flipkart, IRCTC.",
+    "total_by_currency": {
+      "INR": 1700.0
+    },
+    "top_3_merchants": [
+      "Flipkart",
+      "IRCTC"
+    ],
+    "anomaly_count": 0
+  }
+}

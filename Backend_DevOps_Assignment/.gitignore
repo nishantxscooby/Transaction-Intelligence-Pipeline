@@ -1,0 +1,45 @@
+# Python / editor
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+.venv/
+venv/
+.vscode/
+.DS_Store
+
+# pip, build
+build/
+dist/
+*.egg-info/
+
+# IDE/OS files
+*.swp
+*.swo
+
+# Local secrets & runtime
+.env
+jobs.db
+*.sqlite3
+
+# Runner outputs (keep runner_output.json tracked if wanted)
+# output/runner_output.json
+output/*.json
+
+# Node/npm artifacts
+node_modules/
+
+# macOS
+.AppleDouble
+.LSOverride
+
+# Logs
+*.log
+
+# python environment
+.venv/
+
+# ignore wheel files
+*.whl

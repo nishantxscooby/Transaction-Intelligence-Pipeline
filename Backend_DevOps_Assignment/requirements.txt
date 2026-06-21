@@ -1,0 +1,10 @@
+# minimal requirements
+python-dateutil
+SQLAlchemy>=2.0
+psycopg2-binary
+celery[redis]
+redis
+requests
+fastapi
+uvicorn[standard]
+python-multipart

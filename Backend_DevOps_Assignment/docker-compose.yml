@@ -1,0 +1,64 @@
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: transactions
+    ports:
+      - "5432:5432"
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+      - postgres
+    environment:
+      - DATABASE_URL=postgresql://user:pass@postgres:5432/transactions
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - storage:/app/storage
+
+  worker:
+    build:
+      context: .
+      dockerfile: worker.Dockerfile
+    depends_on:
+      - redis
+      - postgres
+    environment:
+      - DATABASE_URL=postgresql://user:pass@postgres:5432/transactions
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - storage:/app/storage
+    command: ["celery", "-A", "app.celery_app.celery", "worker", "--loglevel=info"]
+
+  celery-flower:
+    image: mher/flower
+    ports:
+      - "5555:5555"
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+
+  runner:
+    build: .
+    depends_on:
+      - api
+    environment:
+      - API_HOST=http://api:8000
+    volumes:
+      - ./:/app
+      - storage:/app/storage
+      - ./output:/app/output
+    command: ["python", "/app/app/runner.py"]
+    # run once and exit after printing results
+
+volumes:
+  storage:
